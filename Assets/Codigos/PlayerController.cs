@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     //Variables
     public float gravity = 98f;
     public float moveSpeed = 5f;
+    public float x, y;
     //private Animator anim;
     public float speedLimit = 50f;
     public float jumpSpeed = 20f;
@@ -29,9 +30,13 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Vector3 (x,y,z)
+
+        x = Input.GetAxis("Horizontal");
+        y = Input.GetAxis("Vertical");
+
         if (controller.isGrounded)
         {
-            moveDirection = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+            moveDirection = new Vector3(x, 0, y);
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= moveSpeed;
             if (Input.GetButton("Jump"))
@@ -41,6 +46,10 @@ public class PlayerController : MonoBehaviour
         }
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+
+
+        anim.SetFloat("VelX", x);
+        anim.SetFloat("VelY", y);
 
     }
 
