@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     //private Animator anim;
     public float speedLimit = 50f;
     public float jumpSpeed = 20f;
+    public float velocidadRotacion = 200.0f;
     private CharacterController controller;
     private Vector3 moveDirection;
     private Animator anim;
@@ -38,6 +39,7 @@ public class PlayerController : MonoBehaviour
         {
             moveDirection = new Vector3(x, 0, y);
             moveDirection = transform.TransformDirection(moveDirection);
+            transform.Rotate(0, x * Time.deltaTime * velocidadRotacion, 0);
             moveDirection *= moveSpeed;
             if (Input.GetButton("Jump"))
             {
