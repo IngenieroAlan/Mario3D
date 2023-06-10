@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,11 +18,13 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveDirection;
     private Animator anim;
     private Vector3 respawnPosition;
+    public GameController gameController;
     //public GameController gameController;
     // Start is called before the first frame update
     void Start()
     {
         respawnPosition = transform.position;
+        Console.Write(respawnPosition);
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
 
@@ -55,23 +58,24 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    /*void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Lava"))
+        if (other.gameObject.CompareTag("Vacio"))
         {
             // moveDirection = transform.TransformDirection(respawnPosition);
             transform.position = respawnPosition;
             gameController.subtractScore(10);
             gameController.takeLife();
         }
-        if (other.gameObject.CompareTag("Checkpoint"))
+        /*if (other.gameObject.CompareTag("Checkpoint"))
         {
             respawnPosition = transform.position;
+            
+        }
+        if (other.gameObject.CompareTag("Coin"))
+        {
             gameController.addScore(100);
             Destroy(other.gameObject);
-        }
-        /*if (other.gameObject.CompareTag("Coin"))
-        {
-        }
-    }*/
+        }*/
+    }
 }
