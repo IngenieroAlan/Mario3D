@@ -24,16 +24,7 @@ public class GoombaMovement : MonoBehaviour
         }
 
     }
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        // El Goomba ha colisionado con un objeto cúbico con el tag "Pared"
-        if (collision.gameObject.CompareTag("Pared"))
-        {
-            // Girar 180 grados al Goomba
-            transform.Rotate(Vector3.up, 180);
-        }
-    }*/
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Pared"))
         {
@@ -43,3 +34,21 @@ public class GoombaMovement : MonoBehaviour
     }
 
 }
+/*private void OnCollisionEnter(Collision collision)
+{
+    // El Goomba ha colisionado con un objeto cúbico con el tag "Pared"
+    if (collision.gameObject.CompareTag("Pared"))
+    {
+        // Girar 180 grados al Goomba
+        transform.Rotate(Vector3.up, 180);
+    }
+}*/
+/*private void OnTriggerEnte-r(Collider other)
+    {
+        if (other.gameObject.CompareTag("Pared"))
+        {
+            // Girar 180 grados al Goomba
+            transform.Rotate(Vector3.up, 180);
+        }
+    }
+*/

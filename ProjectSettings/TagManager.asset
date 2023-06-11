@@ -7,6 +7,9 @@ TagManager:
   - Goompa
   - Pared
   - Vacio
+  - Coin
+  - Bandera
+  - Bloque
   layers:
   - Default
   - TransparentFX

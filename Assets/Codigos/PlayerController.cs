@@ -19,12 +19,13 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private Vector3 respawnPosition;
     public GameController gameController;
+    private bool banderaFinal = true;
     //public GameController gameController;
     // Start is called before the first frame update
     void Start()
     {
         respawnPosition = transform.position;
-        Console.Write(respawnPosition);
+        UnityEngine.Debug.Log("Entra: "+respawnPosition);
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
 
@@ -62,20 +63,35 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Vacio"))
         {
-            // moveDirection = transform.TransformDirection(respawnPosition);
-            transform.position = respawnPosition;
+            //moveDirection = transform.TransformDirection(respawnPosition);
+            //transform.position = respawnPosition;
+            if ((transform.position == respawnPosition)) {
+                controller.Move(transform.position);
+                UnityEngine.Debug.Log(true);
+            }
+            UnityEngine.Debug.Log("Entra: " + transform.position);
             gameController.subtractScore(10);
             gameController.takeLife();
         }
-        /*if (other.gameObject.CompareTag("Checkpoint"))
+        if (other.gameObject.CompareTag("Bandera"))
         {
+            if (banderaFinal) { 
+                gameController.addScore(500);
+            }
             respawnPosition = transform.position;
+            banderaFinal = false;
             
         }
         if (other.gameObject.CompareTag("Coin"))
         {
             gameController.addScore(100);
             Destroy(other.gameObject);
-        }*/
+        }
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Bloque")){ 
+            Destroy(collision.gameObject);
+        }
     }
 }
