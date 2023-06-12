@@ -10,18 +10,15 @@ public class PlayerController : MonoBehaviour
     public float gravity = 98f;
     public float moveSpeed = 5f;
     public float x, y;
-    //private Animator anim;
     public float speedLimit = 50f;
     public float jumpSpeed = 20f;
-    public float velocidadRotacion = 200.0f;
+    public float velocidadRotacion = 150.0f;
     private CharacterController controller;
     private Vector3 moveDirection;
     private Animator anim;
     private Vector3 respawnPosition;
     public GameController gameController;
     private bool banderaFinal = true;
-    //public GameController gameController;
-    // Start is called before the first frame update
     void Start()
     {
         respawnPosition = transform.position;
@@ -35,10 +32,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Vector3 (x,y,z)
+        UnityEngine.Debug.Log("Entra: " + respawnPosition);
 
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
-
         if (controller.isGrounded)
         {
             moveDirection = new Vector3(x, 0, y);
@@ -63,22 +60,15 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Vacio"))
         {
-            //moveDirection = transform.TransformDirection(respawnPosition);
-            //transform.position = respawnPosition;
-            if ((transform.position == respawnPosition)) {
-                controller.Move(transform.position);
-                UnityEngine.Debug.Log(true);
-            }
-            UnityEngine.Debug.Log("Entra: " + transform.position);
+            transform.position = respawnPosition;
             gameController.subtractScore(10);
             gameController.takeLife();
         }
         if (other.gameObject.CompareTag("Bandera"))
         {
             if (banderaFinal) { 
-                gameController.addScore(500);
+                gameController.winner();
             }
-            respawnPosition = transform.position;
             banderaFinal = false;
             
         }
