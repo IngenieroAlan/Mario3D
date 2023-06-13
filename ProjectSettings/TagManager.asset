@@ -4,12 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Goompa
   - Pared
-  - Vacio
   - Coin
   - Bandera
   - Bloque
+  - Hongo
+  - Deathfloor
   layers:
   - Default
   - TransparentFX

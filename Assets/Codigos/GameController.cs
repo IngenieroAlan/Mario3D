@@ -42,7 +42,9 @@ public class GameController : MonoBehaviour
         {
             gameOver();
         }
-        livesText.text = $"Vidas: {lives}";
+        else { 
+            livesText.text = $"Vidas: {lives}";
+        }
     }
     public void addLife()
     {

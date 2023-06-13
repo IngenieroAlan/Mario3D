@@ -21,10 +21,12 @@ public class PlayerController : MonoBehaviour
     private bool banderaFinal = true;
     void Start()
     {
-        respawnPosition = transform.position;
-        UnityEngine.Debug.Log("Entra: "+respawnPosition);
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+        respawnPosition = transform.position;
+        UnityEngine.Debug.Log("Respawn position: "+ respawnPosition);
+        UnityEngine.Debug.Log("transform position: " + transform.position);
+
 
     }
 
@@ -32,11 +34,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Vector3 (x,y,z)
-
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
         if (controller.isGrounded)
         {
+            x = Input.GetAxis("Horizontal");
+            y = Input.GetAxis("Vertical");
             moveDirection = new Vector3(x, 0, y);
             moveDirection = transform.TransformDirection(moveDirection);
             transform.Rotate(0, x * Time.deltaTime * velocidadRotacion, 0);
@@ -55,17 +56,15 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public Vector3 getRespawn()
+    {
+        return respawnPosition;
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Vacio"))
-        {
-            if(this.CompareTag("Player"))
-            {
-                transform.position = respawnPosition;
-                gameController.subtractScore(150);
-                gameController.takeLife();
-            }
-        }
+        
+        
         if (other.gameObject.CompareTag("Bandera"))
         {
             if (banderaFinal) { 
@@ -84,10 +83,21 @@ public class PlayerController : MonoBehaviour
             gameController.addLife();
             Destroy(other.gameObject);
         }
+        if (other.gameObject.CompareTag("Deathfloor"))
+        {
+            gameController.subtractScore(150);
+            gameController.takeLife();
+            this.moveDirection = transform.TransformDirection(respawnPosition);
+            this.transform.position = respawnPosition;
+            /*transform.position = respawnPosition;
+            moveDirection = transform.TransformDirection(respawnPosition);
+            controller.Move(moveDirection);*/
+
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Bloque")){ 
+        if (collision.gameObject.CompareTag("Bloque")){ 
             Destroy(collision.gameObject);
         }
     }
