@@ -32,7 +32,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Vector3 (x,y,z)
-        UnityEngine.Debug.Log("Entra: " + respawnPosition);
 
         x = Input.GetAxis("Horizontal");
         y = Input.GetAxis("Vertical");
@@ -60,9 +59,12 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Vacio"))
         {
-            transform.position = respawnPosition;
-            gameController.subtractScore(10);
-            gameController.takeLife();
+            if(this.CompareTag("Player"))
+            {
+                transform.position = respawnPosition;
+                gameController.subtractScore(150);
+                gameController.takeLife();
+            }
         }
         if (other.gameObject.CompareTag("Bandera"))
         {
@@ -74,7 +76,12 @@ public class PlayerController : MonoBehaviour
         }
         if (other.gameObject.CompareTag("Coin"))
         {
-            gameController.addScore(100);
+            gameController.addScore(50);
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.CompareTag("Hongo"))
+        {
+            gameController.addLife();
             Destroy(other.gameObject);
         }
     }
